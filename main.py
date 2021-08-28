@@ -7,7 +7,7 @@ from config.config import *
 import random
 import time
 
-client = commands.Bot(command_prefix=";")
+client = commands.Bot(command_prefix=";panda ", help_command=None)
 
 
 # On starting up the bot
@@ -15,14 +15,74 @@ client = commands.Bot(command_prefix=";")
 async def on_ready():
     print(STARTUP_MESSAGE)
 
-    await client.change_presence(status=discord.Status.online, activity=discord.Game(name=";help "))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game(name=";panda help "))
 
     print("\nGuilds currently joined:\n")
     for guild in client.guilds:
         print(guild)
         await guild.me.edit(nick=DEFAULT_NICKNAME)
 
-    print("\n" + STARTUP_COMPLETE_MESSAGE)
+    print("\n" + STARTUP_COMPLETE_MESSAGE + "\n")
+
+# Help documentation
+@client.group(name="help", invoke_without_command=True)
+async def help(ctx):
+  # Initialize the embedded message
+  embed=discord.Embed(description="This bot is in BETA. For more info about a command, use `;panda help <name of command>`",
+color=0xFF5733)
+
+  # Include more fields to the embed
+  embed.set_author(name=PANDA_HELP_NAME, icon_url=PANDA_HELP_ICON)
+  embed.add_field(name="Utilities", value=EMBED_UTILS, inline=False)
+  embed.add_field(name="Games:", value=EMBED_GAMES, inline=False)
+  embed.set_footer(text="More commands and functionalities are on the way. Hang on tight!")
+
+  await ctx.send(embed=embed)
+
+
+@help.command(name="ping")
+async def ping_subcommand(ctx):
+  embed=discord.Embed(description="Ping the server and check for the response time.", color=EMBED_COLOR)
+  embed.set_author(name=PANDA_HELP_NAME, icon_url=PANDA_HELP_ICON)
+  embed.add_field(name="How To Use", value="Simply type `;panda ping` and get a pong back in milliseconds.", inline=False)
+  embed.set_footer(text=EMBED_MORE_HELP)
+  await ctx.send(embed=embed)
+
+
+@help.command(name="convert")
+async def convert_subcommand(ctx):
+  embed=discord.Embed(description="Time converter.", color=EMBED_COLOR)
+  embed.set_author(name=PANDA_HELP_NAME, icon_url=PANDA_HELP_ICON)
+  embed.add_field(name="How To Use", value="The format for the command is as follows: [timezone from] [timezone to] [hh:mm]. Example: `;panda convert UTC EST 13:30`", inline=False)
+  embed.add_field(name="Available Timezones", value="UTC, EST", inline=False)
+  embed.set_footer(text=EMBED_MORE_HELP)
+  await ctx.send(embed=embed)
+
+
+@help.command(name="clear")
+async def clear_subcommand(ctx):
+  embed=discord.Embed(description="Use this command to clear messages. **NOTE**: Only available to admins.")
+  embed.set_author(name=PANDA_HELP_NAME, icon_url=PANDA_HELP_ICON)
+  embed.add_field(name="How To Use", value="Clear a number of messages in the particular channel between 1 and 100. Example: `;panda clear 20`.")
+  embed.set_footer(text=EMBED_MORE_HELP)
+  await ctx.send(embed=embed)
+
+@help.command(name="dice")
+async def dice_subcommand(ctx):
+  embed=discord.Embed(description="Roll the dice against the bot and see who wins!", color=EMBED_COLOR)
+  embed.set_author(name=PANDA_HELP_NAME, icon_url=PANDA_HELP_ICON)
+  embed.add_field(name="How To Use", value="Roll the dice! Command: `;panda dice`")
+  embed.set_footer(text=EMBED_MORE_HELP)
+  await ctx.send(embed=embed)
+
+
+@help.command(name="8ball")
+async def ball8_subcommand(ctx):
+  embed=discord.Embed(description="See what I think about your yes or no questions.", color=EMBED_COLOR)
+  embed.set_author(name=PANDA_HELP_NAME, icon_url=PANDA_HELP_ICON)
+  embed.add_field(name="How To Use", value="Use the command, followed by a yes or no question. Example: `;panda 8ball is the panda bot not the best bot ever?`")
+  embed.set_footer(text=EMBED_MORE_HELP)
+  await ctx.send(embed=embed)
 
 
 # Dice game
@@ -116,6 +176,8 @@ async def clear(ctx, amount = 0):
       await ctx.send("Specify how many messages to clear")
     elif amount in range(1, 100):
       await ctx.channel.purge(limit = amount + 1, check = lambda msg: not msg.pinned)
+    elif amount > 100:
+      await ctx.send("Due to safety reasons, this is limited to only 100.")
   
   else:
 
@@ -126,5 +188,3 @@ async def clear(ctx, amount = 0):
 
 my_secret = os.environ['token']
 client.run(my_secret)
-
-# This is a test
