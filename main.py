@@ -126,3 +126,5 @@ async def clear(ctx, amount = 0):
 
 my_secret = os.environ['token']
 client.run(my_secret)
+
+# This is a test
