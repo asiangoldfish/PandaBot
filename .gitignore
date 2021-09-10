@@ -1,8 +1,8 @@
-venv/*
-_pycache_/*
-config/_pycache_/*
+venv/
+_pycache_/
+config/_pycache_/
 .idea/workspace.xml
-time_converter/_pycache_/*
+time_converter/_pycache_/
 .idea/libraries/*.xml
 .idea/gradle.xml
 .idea/dataSources.ids
