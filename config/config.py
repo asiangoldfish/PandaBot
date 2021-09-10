@@ -1,5 +1,12 @@
+"""
+Contains useful variables that can easily be changed from here without damaging or altering the program's
+behaviour.
+"""
+
+# Apply a nickname for the bot on all servers on startup
 DEFAULT_NICKNAME = "Panda"
 
+# Terminal messages on startup
 STARTUP_MESSAGE = "Starting Bot..."
 STARTUP_COMPLETE_MESSAGE = "Startup Complete"
 YES = "bot.yes"
