@@ -12,10 +12,11 @@ sudo apt install git
 - ... and clone the repository:
 ```
 git clone https://github.com/asiangoldfish/discordbot_py.git
+cd discordbot_py
 ```
 - Install Python
 ```
-sudo apt install python
+sudo apt install python3
 ```
 - The bot utilizes third-party packages. It's therefore recommended to use a virtual environment. There are several virtual environments to choose between and is a matter of personal preference. To get you started, venv is an easy to use module to begin with.  
 ```
@@ -41,6 +42,9 @@ pip3 install -r requirements.txt
     - Replace `[YOUR TOKEN]` with your Discord bot's token.
 ```
 cp .env.example .env
-echo "TOKEN=[YOUR TOKEN]"
+echo "TOKEN=[YOUR TOKEN]" > .env
 ```
 - Start the program
+```
+python3 main.py
+```
