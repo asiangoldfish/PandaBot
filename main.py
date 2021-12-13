@@ -14,6 +14,8 @@ from time_converter import time_zone, time_help
 from config.config import *
 import random
 import time
+from dotenv import load_dotenv
+
 
 # Declares the default variable used for all bot related commands and methods.
 client = commands.Bot(command_prefix=";panda ", help_command=None)
@@ -30,13 +32,7 @@ async def on_ready():
 	# Changes the bot's activity visible on Discord
 	await client.change_presence(status=discord.Status.online, activity=discord.Game(name=";panda help "))
 
-	# Prints the name of the guilds the bot is part of.
-	print("\nGuilds currently joined:\n")
-	for guild in client.guilds:
-		print(guild)
-		await guild.me.edit(nick=DEFAULT_NICKNAME)
-
-	print("\n" + STARTUP_COMPLETE_MESSAGE + "\n")  # Prints this to confirm that the bot startup is successful
+	print(STARTUP_COMPLETE_MESSAGE)  # Prints this to confirm that the bot startup is successful
 
 
 @client.group(name="help", invoke_without_command=True)
@@ -249,6 +245,20 @@ async def clear(ctx, amount=0):
 		time.sleep(3)
 		await ctx.channel.purge(limit=2)
 
+# Fetch token from environment variable
+try:
+	load_dotenv("./.env")
+	TOKEN = os.environ["TOKEN"]
+except Exception:
+	print("Missing Discord token. To learn how to pass the token, read the documentation here:")
+	print("https://github.com/asiangoldfish/discordbot_py/blob/master/docs/setup.md/")
+	exit()
 
-my_secret = os.environ['token']
-client.run(my_secret)
+
+try:
+	client.run(TOKEN)
+except discord.errors.LoginFailure as e:
+	print(f"{e} Ensure that the token is correct. To learn more about how to pass the token, read the documentation here:")
+	print("https://github.com/asiangoldfish/discordbot_py/blob/master/docs/setup.md/")
+	exit()
+
