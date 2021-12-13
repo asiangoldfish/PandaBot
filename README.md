@@ -7,7 +7,11 @@ This will hopefully make it less daunting and more friendly for new Pythonistas.
 If you are experienced in programming, then this bot will appear utterly basic to you. For new programmers, however,
 I hope this will become helpful as you are learning Python, just like I am!
 
-## How to use the bot
+## Navigation
+- [How to Use the Bot](#how-to-use-the-bot)
+- [Setting Up Guide](/docs/setup.md)
+
+## How to Use the Bot
 
 It comes with a few commands:
 - *;panda help* - Help/documentation command
