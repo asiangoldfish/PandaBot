@@ -1,5 +1,7 @@
 # PandaBot
 
+**Note:** The API calls this bot uses no longer works. The project is therefore archived and read-only.
+
 Welcome to the Panda bot GitHub page! The bot was developed as method to learn Python, which has worked brilliantly.
 Panda's source codes comes with a lot of docstrings and comments to clarify and explain how each block of code works.
 This will hopefully make it less daunting and more friendly for new Pythonistas.
